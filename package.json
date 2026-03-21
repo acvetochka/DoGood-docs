@@ -1,0 +1,16 @@
+{
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "vitepress": "^1.6.4",
+    "vitepress-plugin-mermaid": "^2.0.17",
+    "mermaid": "^11.12.3"
+  },
+  "scripts": {
+    "dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
+  },
+  "dependencies": {
+    "mermaid": "^11.13.0"
+  }
+}
