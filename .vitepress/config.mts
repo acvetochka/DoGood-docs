@@ -1,6 +1,6 @@
 // import { defineConfig } from 'vitepress'
 
-// // https://vitepress.dev/reference/site-config
+// https://vitepress.dev/reference/site-config
 // export default defineConfig({
 //   srcDir: "docs",
 
@@ -32,6 +32,8 @@
 import { defineConfig } from "vitepress";
 import { withMermaid } from "vitepress-plugin-mermaid";
 
+// https://vitepress.dev/reference/site-config
+
 export default withMermaid(
   defineConfig({
     srcDir: "docs",
@@ -42,6 +44,7 @@ export default withMermaid(
 
     themeConfig: {
       siteTitle: "Project Docs",
+      // https://vitepress.dev/reference/default-theme-config
 
       nav: [
         { text: "Головна", link: "/" },
@@ -82,11 +85,11 @@ export default withMermaid(
             {
               text: "Auth",
               items: [
-                { text: "POST /auth/login", link: "/endpoints/auth/login" },
-                { text: "POST /auth/refresh", link: "/endpoints/auth/refresh" },
+                { text: "POST /auth/login", link: "/endpoints" },
+                { text: "POST /auth/refresh", link: "/endpoints" },
                 {
                   text: "GET /users/current",
-                  link: "/endpoints/users/current-user",
+                  link: "/endpoints/users",
                 },
               ],
             },
