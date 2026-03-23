@@ -5,29 +5,33 @@ layout: home
 hero:
   name: "DoGood documentation"
   text: "Frontend ↔ Backend documentation"
-  tagline: My great project tagline
-  actions:
-    - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
-    - theme: alt
-      text: API Examples
-      link: /api-examples
+  # actions:
+  #   - theme: brand
+  #     text: Markdown Examples
+  #     link: /markdown-examples
+  #   - theme: alt
+  #     text: API Examples
+  #     link: /api-examples
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-    link: /api-examples
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
+  - title: Архітектура
+    details: загальна логіка системи
+    link: /architecture/overview
+  - title: Cутності 
+    details: моделі та сутності
+    link: /entities/task
+  - title: Ендпоінти
+    details: конкретні API-контракти
+    link: /endpoints/tasks/create-task
+  - title: API Swagger
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---
 
 ---
 
-## 6. `docs/index.md`
-
+1. **Architecture** — загальна логіка системи
+2. **Entities** — моделі та сутності
+3. **Endpoints** — конкретні API-контракти
 # Project Documentation
 
 Ця документація описує:
