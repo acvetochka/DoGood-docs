@@ -48,10 +48,10 @@ export default withMermaid(
 
       nav: [
         { text: "Головна", link: "/" },
-        { text: "Examples", link: "/markdown-examples" },
+        // { text: "Examples", link: "/markdown-examples" },
         { text: "Архітектура", link: "/architecture/overview" },
-        { text: "Сутності", link: "/entities/user" },
-        { text: "Ендпоінти", link: "/endpoints/auth/login" },
+        { text: "Сутності", link: "/entities/task" },
+        { text: "Ендпоінти", link: "/endpoints/tasks/create-task" },
         { text: "API Reference", link: "/api-reference/openapi" },
       ],
 
@@ -64,19 +64,20 @@ export default withMermaid(
           text: "Архітектура",
           items: [
             { text: "Overview", link: "/architecture/overview" },
-            {
-              text: "Frontend ↔ Backend Flow",
-              link: "/architecture/frontend-backend-flow",
-            },
-            { text: "Auth Flow", link: "/architecture/auth-flow" },
+            { text: "DTO and Models", link: "/architecture/dto-and-models" }
+            // {
+            //   text: "Frontend ↔ Backend Flow",
+            //   link: "/architecture/frontend-backend-flow",
+            // },
+            // { text: "Auth Flow", link: "/architecture/auth-flow" },
           ],
         },
         {
           text: "Сутності",
           items: [
-            { text: "User", link: "/entities/user" },
+            // { text: "User", link: "/entities/user" },
             { text: "Task", link: "/entities/task" },
-            { text: "Organization", link: "/entities/organization" },
+            // { text: "Organization", link: "/entities/organization" },
           ],
         },
         {
