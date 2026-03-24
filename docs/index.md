@@ -24,7 +24,8 @@ features:
     details: конкретні API-контракти
     link: /endpoints/tasks/create-task
   - title: API Swagger
-    details: посилання на документацію Swagger 
+    details: документація Swagger 
+    link: /api-reference/swagger-ui
 ---
 
 ---

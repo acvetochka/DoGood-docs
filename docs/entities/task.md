@@ -107,7 +107,8 @@
 
 ### Схема SQL / ER
 
-![Task diagram](/diagrams/task.svg)
+<!-- ![Task diagram](/diagrams/task.svg) -->
+<img src="/diagrams/task.svg" class="diagram" />
 
 
 ## 3. Task Response DTO
