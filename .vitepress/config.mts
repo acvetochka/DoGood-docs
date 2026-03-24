@@ -22,6 +22,8 @@ export default withMermaid(
         { text: "Сутності", link: "/entities/task" },
         { text: "Ендпоінти", link: "/endpoints/tasks/create-task" },
         { text: "API Reference", link: "/api-reference/swagger-ui" },
+        { text: "Frontend", link: "/frontend/components" }
+
       ],
 
       sidebar: {
@@ -87,6 +89,16 @@ export default withMermaid(
           //     { text: 'Swagger UI', link: '/api-reference/swagger-ui' }
           //   ],
           // },
+        ],
+
+        '/frontend/': [
+          {
+            text: "Frontend Docs",
+            items: [
+              { text: "Components", link: "/frontend/components" },
+              { text: "Styles", link: "/frontend/styles" }
+            ]
+          }
         ],
 
         // Swagger - вимкнути sidebar

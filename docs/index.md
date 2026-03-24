@@ -5,13 +5,13 @@ layout: home
 hero:
   name: "DoGood documentation"
   text: "Frontend ↔ Backend documentation"
-  # actions:
-  #   - theme: brand
-  #     text: Markdown Examples
-  #     link: /markdown-examples
-  #   - theme: alt
-  #     text: API Examples
-  #     link: /api-examples
+  actions:
+    - theme: brand
+      text: Figma Design
+      link: https://www.figma.com/design/0RMhHs8vnQiQvctOk673GW/DoGood-Design
+    - theme: alt
+      text: Frontend Docs
+      link: /frontend/components
 
 features:
   - title: Архітектура
