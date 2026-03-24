@@ -36,7 +36,9 @@
     },
     "/auth/signup": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Register a new user",
         "operationId": "registerUser",
         "parameters": [
@@ -116,7 +118,9 @@
     },
     "/auth/create-organization": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Register a new user and create an associated organization",
         "operationId": "registerOrganization",
         "parameters": [
@@ -203,7 +207,9 @@
     },
     "/auth/login": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Login user",
         "operationId": "logIn",
         "requestBody": {
@@ -302,7 +308,9 @@
     },
     "/auth/logout": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Logout user",
         "operationId": "logOut",
         "responses": {
@@ -335,7 +343,9 @@
     },
     "/auth/verify-email/{verificationCode}": {
       "get": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Verify user email by verification code",
         "operationId": "verifyEmail",
         "parameters": [
@@ -411,7 +421,9 @@
     },
     "/auth/resend-verification": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Resend email verification code",
         "operationId": "resendVerificationEmail",
         "parameters": [
@@ -496,7 +508,9 @@
     },
     "/auth/current-user": {
       "get": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Get current authenticated user",
         "operationId": "getCurrentUser",
         "security": [
@@ -558,7 +572,9 @@
     },
     "/auth/refresh-token": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Refresh access token using refresh token",
         "operationId": "refreshTokenController",
         "responses": {
@@ -667,7 +683,9 @@
     },
     "/auth/forgot-password": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Send reset password email",
         "operationId": "forgotPassword",
         "parameters": [
@@ -748,7 +766,9 @@
     },
     "/auth/reset-password/{resetPasswordToken}": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Reset password using reset token",
         "operationId": "resetPassword",
         "parameters": [
@@ -828,7 +848,9 @@
     },
     "/auth/resent-forgot-password": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Resend reset password email",
         "operationId": "resendResetPassword",
         "requestBody": {
@@ -899,14 +921,21 @@
     "/contact": {
       "post": {
         "summary": "Send contact form message",
-        "tags": ["Contact"],
+        "tags": [
+          "Contact"
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["name", "phone", "email", "message"],
+                "required": [
+                  "name",
+                  "phone",
+                  "email",
+                  "message"
+                ],
                 "properties": {
                   "name": {
                     "type": "string",
@@ -949,7 +978,9 @@
     },
     "/{id}": {
       "get": {
-        "tags": ["Donate"],
+        "tags": [
+          "Donate"
+        ],
         "summary": "Get donation information",
         "parameters": [
           {
@@ -998,7 +1029,9 @@
     },
     "/create-checkout-session": {
       "post": {
-        "tags": ["Donate"],
+        "tags": [
+          "Donate"
+        ],
         "summary": "Create Stripe Checkout Session",
         "requestBody": {
           "required": true,
@@ -1060,7 +1093,9 @@
     },
     "/webhook": {
       "post": {
-        "tags": ["Donate"],
+        "tags": [
+          "Donate"
+        ],
         "summary": "Stripe Webhook endpoint",
         "description": "Receives events from Stripe (checkout.session.completed, payment_intent.payment_failed)",
         "requestBody": {
@@ -1082,7 +1117,9 @@
     },
     "/health/liveness": {
       "get": {
-        "tags": ["System"],
+        "tags": [
+          "System"
+        ],
         "summary": "Liveness probe",
         "description": "Returns 200 OK if the application process is running. Used by Docker/K8s to decide if the container needs a restart.",
         "responses": {
@@ -1102,7 +1139,9 @@
     },
     "/health/readiness": {
       "get": {
-        "tags": ["System"],
+        "tags": [
+          "System"
+        ],
         "summary": "Readiness probe",
         "description": "Verifies if the application is ready to handle traffic by checking the database connection (Prisma).",
         "responses": {
@@ -1139,9 +1178,193 @@
         }
       }
     },
+    "/notifications": {
+      "get": {
+        "summary": "Get a paginated list of user notifications",
+        "tags": [
+          "Notifications"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "Number of the page to retrieve"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 20
+            },
+            "description": "Number of notifications per page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved notifications",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Notification"
+                      }
+                    },
+                    "pagination": {
+                      "$ref": "#/components/schemas/Pagination"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/read-all": {
+      "patch": {
+        "summary": "Mark all notifications as read",
+        "tags": [
+          "Notifications"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All notifications marked as read",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "All notifications marked as read"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/{id}/read": {
+      "patch": {
+        "summary": "Mark a specific notification as read",
+        "tags": [
+          "Notifications"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notification marked as read",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Notification"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/{id}": {
+      "delete": {
+        "summary": "Delete a specific notification",
+        "tags": [
+          "Notifications"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notification deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/organization/create": {
       "post": {
-        "tags": ["Organization"],
+        "tags": [
+          "Organization"
+        ],
         "summary": "Create a new organization",
         "security": [
           {
@@ -1174,7 +1397,9 @@
     },
     "/organization/{id}": {
       "get": {
-        "tags": ["Organization"],
+        "tags": [
+          "Organization"
+        ],
         "summary": "Get organization by ID",
         "parameters": [
           {
@@ -1201,7 +1426,9 @@
         }
       },
       "patch": {
-        "tags": ["Organization"],
+        "tags": [
+          "Organization"
+        ],
         "summary": "Update organization (ADMIN only)",
         "security": [
           {
@@ -1239,7 +1466,9 @@
         }
       },
       "delete": {
-        "tags": ["Organization"],
+        "tags": [
+          "Organization"
+        ],
         "summary": "Delete organization (ADMIN/HOST only)",
         "security": [
           {
@@ -1266,7 +1495,9 @@
     },
     "/organization/members": {
       "post": {
-        "tags": ["Members"],
+        "tags": [
+          "Members"
+        ],
         "summary": "Add a member directly (ADMIN/MODERATOR only)",
         "security": [
           {
@@ -1292,7 +1523,9 @@
     },
     "/organization/members/role": {
       "patch": {
-        "tags": ["Members"],
+        "tags": [
+          "Members"
+        ],
         "summary": "Update member role (ADMIN only)",
         "security": [
           {
@@ -1318,7 +1551,9 @@
     },
     "/organization/join-request": {
       "post": {
-        "tags": ["JoinRequest"],
+        "tags": [
+          "JoinRequest"
+        ],
         "summary": "Create a join request (senderId from token)",
         "security": [
           {
@@ -1344,7 +1579,9 @@
     },
     "/organization/join-request/status": {
       "patch": {
-        "tags": ["JoinRequest"],
+        "tags": [
+          "JoinRequest"
+        ],
         "summary": "Update join request status",
         "security": [
           {
@@ -1370,7 +1607,9 @@
     },
     "/organization/{organizationId}/join-requests": {
       "get": {
-        "tags": ["JoinRequest"],
+        "tags": [
+          "JoinRequest"
+        ],
         "summary": "Get all pending join requests for a specific organization",
         "description": "Returns a list of pending requests where the organization is the receiver. Accessible only by ADMIN or MODERATOR.",
         "operationId": "getJoinRequestsForOrganization",
@@ -1416,7 +1655,9 @@
     },
     "/organization/join-request/{id}": {
       "get": {
-        "tags": ["JoinRequest"],
+        "tags": [
+          "JoinRequest"
+        ],
         "summary": "Get details of a pending join request",
         "description": "Returns join request details. Accessible by the sender or organization staff (ADMIN/MODERATOR).",
         "security": [
@@ -1459,14 +1700,22 @@
     "/posts": {
       "post": {
         "summary": "Create new post",
-        "tags": ["Posts"],
+        "tags": [
+          "Posts"
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["title", "category", "content", "image", "tags"],
+                "required": [
+                  "title",
+                  "category",
+                  "content",
+                  "image",
+                  "tags"
+                ],
                 "properties": {
                   "id": {
                     "type": "integer",
@@ -1522,7 +1771,9 @@
     "/posts/:lang": {
       "get": {
         "summary": "Get all posts",
-        "tags": ["Posts"],
+        "tags": [
+          "Posts"
+        ],
         "responses": {
           "200": {
             "description": "Successfully get a list of posts",
@@ -1546,7 +1797,9 @@
     "/posts/:id/:lang": {
       "get": {
         "summary": "Get post by ID",
-        "tags": ["Posts"],
+        "tags": [
+          "Posts"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1579,7 +1832,9 @@
       },
       "patch": {
         "summary": "Update post by ID",
-        "tags": ["Posts"],
+        "tags": [
+          "Posts"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1656,7 +1911,9 @@
     "/posts/:id": {
       "delete": {
         "summary": "Delete post by ID",
-        "tags": ["Posts"],
+        "tags": [
+          "Posts"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1697,7 +1954,9 @@
     "/user/profile/{id}": {
       "get": {
         "summary": "Get user profile by ID",
-        "tags": ["Profile"],
+        "tags": [
+          "Profile"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1750,7 +2009,9 @@
     "/user/profile": {
       "put": {
         "summary": "Update user profile",
-        "tags": ["Profile"],
+        "tags": [
+          "Profile"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -1784,7 +2045,9 @@
       },
       "delete": {
         "summary": "Delete user profile",
-        "tags": ["Profile"],
+        "tags": [
+          "Profile"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -1807,7 +2070,9 @@
     "/user/settings": {
       "put": {
         "summary": "Update user settings",
-        "tags": ["Settings"],
+        "tags": [
+          "Settings"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -1840,7 +2105,9 @@
     "/user/name": {
       "post": {
         "summary": "Search users by name",
-        "tags": ["Profile"],
+        "tags": [
+          "Profile"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -1852,7 +2119,9 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["name"],
+                "required": [
+                  "name"
+                ],
                 "properties": {
                   "name": {
                     "type": "string",
@@ -1891,7 +2160,9 @@
       "post": {
         "summary": "Create user-to-user review",
         "description": "Creates a review from the authenticated user to another user.\nThe author cannot review themselves.\n",
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -1937,7 +2208,9 @@
       "post": {
         "summary": "Create user-to-organization review",
         "description": "Creates a review from the authenticated user to an organization.\n",
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -1986,7 +2259,9 @@
       "post": {
         "summary": "Create user-to-platform review",
         "description": "Creates a review from the authenticated user about the platform.\nPlatform is identified by a server-side configuration (PLATFORM_ID).\n",
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -2035,7 +2310,9 @@
       "post": {
         "summary": "Create task-related user review (host → participant)",
         "description": "Creates a review from the task host to a task participant.\nOnly the host of the task is allowed to create such reviews.\n",
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -2098,7 +2375,9 @@
       "get": {
         "summary": "Get review by ID",
         "description": "Returns a single review by its ID.",
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "parameters": [
           {
             "in": "path",
@@ -2132,7 +2411,9 @@
       "patch": {
         "summary": "Update review by ID",
         "description": "Partially updates an existing review.\nOnly provided fields will be updated.\n",
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "parameters": [
           {
             "in": "path",
@@ -2176,7 +2457,9 @@
       "delete": {
         "summary": "Delete review by ID",
         "description": "Deletes an existing review by ID.",
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -2217,7 +2500,9 @@
       "get": {
         "summary": "Get all reviews written by a user",
         "description": "Returns all reviews for a given user ID (authorUserId).\n",
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "parameters": [
           {
             "in": "path",
@@ -2253,7 +2538,9 @@
       "get": {
         "summary": "Get reviews with filters",
         "description": "Returns a list of reviews filtered by type, target and status.\nNon-admin users only see APPROVED reviews.\n",
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "parameters": [
           {
             "in": "query",
@@ -2261,7 +2548,11 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["user", "organisation", "platform"]
+              "enum": [
+                "user",
+                "organisation",
+                "platform"
+              ]
             },
             "description": "Entity type the reviews are about."
           },
@@ -2280,7 +2571,11 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["PENDING", "APPROVED", "REJECTED"]
+              "enum": [
+                "PENDING",
+                "APPROVED",
+                "REJECTED"
+              ]
             },
             "description": "Review moderation status (admins/moderators only)."
           }
@@ -2308,7 +2603,9 @@
     "/support": {
       "post": {
         "summary": "Send support message",
-        "tags": ["Support"],
+        "tags": [
+          "Support"
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -2340,7 +2637,9 @@
       },
       "get": {
         "summary": "Get all support messages",
-        "tags": ["Support"],
+        "tags": [
+          "Support"
+        ],
         "responses": {
           "200": {
             "description": "List of support messages",
@@ -2358,7 +2657,9 @@
     "/support/{id}": {
       "get": {
         "summary": "Get support message by ID",
-        "tags": ["Support"],
+        "tags": [
+          "Support"
+        ],
         "parameters": [
           {
             "in": "path",
@@ -2390,7 +2691,9 @@
     "/task": {
       "get": {
         "summary": "Отримати всі задачі",
-        "tags": ["Tasks"],
+        "tags": [
+          "Tasks"
+        ],
         "responses": {
           "200": {
             "description": "Список задач",
@@ -2417,7 +2720,9 @@
       },
       "post": {
         "summary": "Створити нову задачу",
-        "tags": ["Tasks"],
+        "tags": [
+          "Tasks"
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -2453,7 +2758,9 @@
     "/task/{id}": {
       "get": {
         "summary": "Отримати задачу за ID",
-        "tags": ["Tasks"],
+        "tags": [
+          "Tasks"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -2490,7 +2797,9 @@
       },
       "patch": {
         "summary": "Оновити задачу (не можна змінювати host і статус)",
-        "tags": ["Tasks"],
+        "tags": [
+          "Tasks"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -2534,7 +2843,9 @@
       },
       "delete": {
         "summary": "Видалити задачу",
-        "tags": ["Tasks"],
+        "tags": [
+          "Tasks"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -2567,7 +2878,9 @@
     "/task/{id}/status": {
       "patch": {
         "summary": "Змінити статус задачі",
-        "tags": ["Tasks"],
+        "tags": [
+          "Tasks"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -2613,7 +2926,9 @@
     "/task/search": {
       "post": {
         "summary": "Пошук задач",
-        "tags": ["Tasks"],
+        "tags": [
+          "Tasks"
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -2669,7 +2984,9 @@
         "properties": {
           "status": {
             "type": "string",
-            "enum": ["error"],
+            "enum": [
+              "error"
+            ],
             "example": "error"
           },
           "statusCode": {
@@ -2691,7 +3008,12 @@
             "nullable": true
           }
         },
-        "required": ["status", "statusCode", "code", "message"]
+        "required": [
+          "status",
+          "statusCode",
+          "code",
+          "message"
+        ]
       },
       "SuccessBaseResponse": {
         "type": "object",
@@ -2711,7 +3033,11 @@
       },
       "SignUpRequest": {
         "type": "object",
-        "required": ["name", "email", "password"],
+        "required": [
+          "name",
+          "email",
+          "password"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -2731,7 +3057,10 @@
       },
       "LoginRequest": {
         "type": "object",
-        "required": ["email", "password"],
+        "required": [
+          "email",
+          "password"
+        ],
         "properties": {
           "email": {
             "type": "string",
@@ -2745,7 +3074,9 @@
       },
       "ForgotPasswordRequest": {
         "type": "object",
-        "required": ["email"],
+        "required": [
+          "email"
+        ],
         "properties": {
           "email": {
             "type": "string",
@@ -2755,7 +3086,9 @@
       },
       "ResetPasswordRequest": {
         "type": "object",
-        "required": ["password"],
+        "required": [
+          "password"
+        ],
         "properties": {
           "password": {
             "type": "string",
@@ -2899,7 +3232,12 @@
       },
       "CreateOrganizationRequest": {
         "type": "object",
-        "required": ["name", "email", "password", "organizationName"],
+        "required": [
+          "name",
+          "email",
+          "password",
+          "organizationName"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -2996,6 +3334,76 @@
           }
         }
       },
+      "Notification": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "ORG_JOIN_REQUEST_RECEIVED",
+              "ORG_JOIN_REQUEST_ACCEPTED",
+              "TASK_ASSIGNED",
+              "MESSAGE_RECEIVED"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "isRead": {
+            "type": "boolean"
+          },
+          "relatedId": {
+            "type": "string",
+            "nullable": true
+          },
+          "entityType": {
+            "type": "string",
+            "enum": [
+              "USER",
+              "ORGANIZATION",
+              "TASK",
+              "REVIEW"
+            ],
+            "nullable": true
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Pagination": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer"
+          },
+          "page": {
+            "type": "integer"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "pages": {
+            "type": "integer"
+          }
+        }
+      },
       "SuccessResponse": {
         "type": "object",
         "properties": {
@@ -3017,7 +3425,11 @@
       },
       "LocationInput": {
         "type": "object",
-        "required": ["country", "region", "city"],
+        "required": [
+          "country",
+          "region",
+          "city"
+        ],
         "properties": {
           "country": {
             "type": "string",
@@ -3178,7 +3590,11 @@
       },
       "AddMemberInput": {
         "type": "object",
-        "required": ["userId", "organizationId", "role"],
+        "required": [
+          "userId",
+          "organizationId",
+          "role"
+        ],
         "properties": {
           "userId": {
             "type": "string",
@@ -3190,13 +3606,20 @@
           },
           "role": {
             "type": "string",
-            "enum": ["MODERATOR", "MEMBER"]
+            "enum": [
+              "MODERATOR",
+              "MEMBER"
+            ]
           }
         }
       },
       "UpdateRoleInput": {
         "type": "object",
-        "required": ["organizationId", "userId", "role"],
+        "required": [
+          "organizationId",
+          "userId",
+          "role"
+        ],
         "properties": {
           "organizationId": {
             "type": "string",
@@ -3208,13 +3631,18 @@
           },
           "role": {
             "type": "string",
-            "enum": ["MODERATOR", "MEMBER"]
+            "enum": [
+              "MODERATOR",
+              "MEMBER"
+            ]
           }
         }
       },
       "CreateJoinRequestInput": {
         "type": "object",
-        "required": ["direction"],
+        "required": [
+          "direction"
+        ],
         "properties": {
           "receiverOrganizationId": {
             "type": "string",
@@ -3228,13 +3656,19 @@
           },
           "direction": {
             "type": "string",
-            "enum": ["FROM_USER", "FROM_ORGANIZATION"]
+            "enum": [
+              "FROM_USER",
+              "FROM_ORGANIZATION"
+            ]
           }
         }
       },
       "UpdateJoinRequestStatusInput": {
         "type": "object",
-        "required": ["id", "status"],
+        "required": [
+          "id",
+          "status"
+        ],
         "properties": {
           "id": {
             "type": "string",
@@ -3242,7 +3676,11 @@
           },
           "status": {
             "type": "string",
-            "enum": ["ACCEPTED", "REJECTED", "CANCELLED"]
+            "enum": [
+              "ACCEPTED",
+              "REJECTED",
+              "CANCELLED"
+            ]
           }
         }
       },
@@ -3255,11 +3693,19 @@
           },
           "status": {
             "type": "string",
-            "enum": ["PENDING", "ACCEPTED", "REJECTED", "CANCELLED"]
+            "enum": [
+              "PENDING",
+              "ACCEPTED",
+              "REJECTED",
+              "CANCELLED"
+            ]
           },
           "direction": {
             "type": "string",
-            "enum": ["FROM_USER", "FROM_ORGANIZATION"]
+            "enum": [
+              "FROM_USER",
+              "FROM_ORGANIZATION"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -3465,12 +3911,21 @@
           },
           "role": {
             "type": "string",
-            "enum": ["ADMIN", "MODERATOR", "MEMBER"],
+            "enum": [
+              "ADMIN",
+              "MODERATOR",
+              "MEMBER"
+            ],
             "example": "ADMIN"
           },
           "status": {
             "type": "string",
-            "enum": ["ACTIVE", "INVITED", "REMOVED", "PENDING"],
+            "enum": [
+              "ACTIVE",
+              "INVITED",
+              "REMOVED",
+              "PENDING"
+            ],
             "example": "ACTIVE"
           },
           "joinedAt": {
@@ -3511,7 +3966,11 @@
           },
           "gender": {
             "type": "string",
-            "enum": ["MALE", "FEMALE", "OTHER"]
+            "enum": [
+              "MALE",
+              "FEMALE",
+              "OTHER"
+            ]
           },
           "birthDate": {
             "type": "string",
@@ -3626,7 +4085,10 @@
       },
       "UserReviewCreateInput": {
         "type": "object",
-        "required": ["targetUserId", "rating"],
+        "required": [
+          "targetUserId",
+          "rating"
+        ],
         "properties": {
           "targetUserId": {
             "type": "string",
@@ -3648,7 +4110,10 @@
       },
       "OrganizationReviewCreateInput": {
         "type": "object",
-        "required": ["targetOrganizationId", "rating"],
+        "required": [
+          "targetOrganizationId",
+          "rating"
+        ],
         "properties": {
           "targetOrganizationId": {
             "type": "string",
@@ -3670,7 +4135,9 @@
       },
       "PlatformReviewCreateInput": {
         "type": "object",
-        "required": ["rating"],
+        "required": [
+          "rating"
+        ],
         "properties": {
           "rating": {
             "type": "integer",
@@ -3692,7 +4159,10 @@
         "properties": {
           "authorType": {
             "type": "string",
-            "enum": ["USER", "ORGANIZATION"]
+            "enum": [
+              "USER",
+              "ORGANIZATION"
+            ]
           },
           "authorUserId": {
             "type": "string",
@@ -3704,7 +4174,11 @@
           },
           "targetType": {
             "type": "string",
-            "enum": ["USER", "ORGANIZATION", "PLATFORM"]
+            "enum": [
+              "USER",
+              "ORGANIZATION",
+              "PLATFORM"
+            ]
           },
           "targetUserId": {
             "type": "string",
@@ -3747,7 +4221,11 @@
           },
           "authorType": {
             "type": "string",
-            "enum": ["USER", "ORGANIZATION", "HOST"]
+            "enum": [
+              "USER",
+              "ORGANIZATION",
+              "HOST"
+            ]
           },
           "authorUserId": {
             "type": "string",
@@ -3759,7 +4237,11 @@
           },
           "targetType": {
             "type": "string",
-            "enum": ["USER", "ORGANIZATION", "PLATFORM"]
+            "enum": [
+              "USER",
+              "ORGANIZATION",
+              "PLATFORM"
+            ]
           },
           "targetUserId": {
             "type": "string",
@@ -3780,7 +4262,11 @@
           },
           "status": {
             "type": "string",
-            "enum": ["PENDING", "APPROVED", "REJECTED"]
+            "enum": [
+              "PENDING",
+              "APPROVED",
+              "REJECTED"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -3885,7 +4371,11 @@
       },
       "CreateSupportMessage": {
         "type": "object",
-        "required": ["email", "subject", "message"],
+        "required": [
+          "email",
+          "subject",
+          "message"
+        ],
         "properties": {
           "email": {
             "type": "string",
@@ -3980,7 +4470,13 @@
       },
       "CategoryType": {
         "type": "string",
-        "enum": ["NATURE", "ANIMAL", "FOOD", "MEDICINE", "DONATION"]
+        "enum": [
+          "NATURE",
+          "ANIMAL",
+          "FOOD",
+          "MEDICINE",
+          "DONATION"
+        ]
       },
       "TaskStatus": {
         "type": "string",
@@ -4038,6 +4534,10 @@
                 "type": "number"
               }
             }
+          },
+          "locationName": {
+            "type": "string",
+            "nullable": true
           },
           "amount": {
             "type": "number",
@@ -4104,6 +4604,10 @@
               }
             }
           },
+          "locationName": {
+            "type": "string",
+            "nullable": true
+          },
           "categories": {
             "type": "array",
             "items": {
@@ -4114,7 +4618,9 @@
       },
       "UpdateTaskStatusInput": {
         "type": "object",
-        "required": ["status"],
+        "required": [
+          "status"
+        ],
         "properties": {
           "status": {
             "$ref": "#/components/schemas/TaskStatus"
@@ -4170,7 +4676,7 @@
               "name": {
                 "type": "string"
               },
-              "email": {
+              "avatar": {
                 "type": "string"
               },
               "createdAt": {
@@ -4191,6 +4697,9 @@
                 "type": "string"
               },
               "name": {
+                "type": "string"
+              },
+              "avatar": {
                 "type": "string"
               },
               "createdAt": {
@@ -4242,10 +4751,18 @@
               }
             }
           },
+          "locationName": {
+            "type": "string",
+            "nullable": true
+          },
           "status": {
             "$ref": "#/components/schemas/TaskStatus"
           },
           "amount": {
+            "type": "number",
+            "nullable": true
+          },
+          "currentAmount": {
             "type": "number",
             "nullable": true
           },
